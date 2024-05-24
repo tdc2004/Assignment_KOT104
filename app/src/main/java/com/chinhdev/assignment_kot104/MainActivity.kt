@@ -1,5 +1,6 @@
 package com.chinhdev.assignment_kot104
 
+import MyCart
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -27,7 +28,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.chinhdev.assignment_kot104.ui.theme.CheckOutSceen
 import com.chinhdev.assignment_kot104.ui.theme.LoginScreen
+import com.chinhdev.assignment_kot104.ui.theme.OderSuccess
+import com.chinhdev.assignment_kot104.ui.theme.ProductDetailScreen
 import com.chinhdev.assignment_kot104.ui.theme.ScreenHome
 import com.chinhdev.assignment_kot104.ui.theme.WelcomeScreen
 
@@ -49,6 +53,10 @@ class MainActivity : ComponentActivity() {
                     composable("welcome") { WelcomeScreen(navController = navController) }
                     composable("login") { LoginScreen(navController = navController) }
                     composable("home") { ScreenHome(navController = navController) }
+                    composable("details") { ProductDetailScreen(navController = navController) }
+                    composable("cart") { MyCart(navController = navController) }
+                    composable("order") { CheckOutSceen(navController = navController) }
+                    composable("sucssces") { OderSuccess(navController = navController) }
                 }
             }
         }

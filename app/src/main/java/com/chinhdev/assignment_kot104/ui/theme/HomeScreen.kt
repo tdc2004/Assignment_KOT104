@@ -6,11 +6,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -45,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.chinhdev.assignment_kot104.BottomNavigationBar
 import com.chinhdev.assignment_kot104.R
 
@@ -135,7 +139,8 @@ fun ScreenHome(navController: NavHostController) {
                     40.0,
                     50.0,
                     60.0
-                )
+                ),
+                navController = navController
             )
 
 
@@ -168,7 +173,7 @@ fun ListItemCategory(imageList: List<Int>, textList: List<String>) {
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(top = 4.dp),
                     fontSize = 14.sp,
-                    fontFamily = FontFamily(Font(R.font.nunitosans)),
+                    fontFamily = FontFamily(Font(R.font.nn)),
                     fontWeight = FontWeight.W700
                 )
             }
@@ -181,22 +186,44 @@ fun ListItemCategory(imageList: List<Int>, textList: List<String>) {
 fun ListProductItem(
     listImageProduct: List<Int>,
     listNameProduct: List<String>,
-    listPriceProduct: List<Double>
+    listPriceProduct: List<Double>,
+    navController: NavHostController
 ) {
     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
         items(listImageProduct.size) { index ->
             Column(
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
             ) {
-                Image(
-                    painter = painterResource(id = listImageProduct[index]),
-                    contentDescription = "",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .width(170.dp)
-                        .height(200.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                )
+                Box(modifier = Modifier
+                    .width(170.dp)
+                    .height(200.dp)
+                    .clickable {
+                        navController.navigate("details")
+                    }
+                ) {
+                    Image(
+                        painter = painterResource(id = listImageProduct[index]),
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .width(170.dp)
+                            .height(200.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                            .padding(end = 10.dp, bottom = 10.dp),
+                        verticalArrangement = Arrangement.SpaceBetween,
+                        horizontalAlignment = Alignment.End
+                    ) {
+                        Text(text = "")
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_tag),
+                            contentDescription = "",
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
+                }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = listNameProduct.getOrNull(index) ?: "",
@@ -205,7 +232,7 @@ fun ListProductItem(
                     fontSize = 15.sp,
                     color = Color("#606060".toColorInt()),
                     fontWeight = FontWeight.W800,
-                    fontFamily = FontFamily(Font(R.font.nunitosans))
+                    fontFamily = FontFamily(Font(R.font.nn))
 
                 )
                 Text(
@@ -225,5 +252,6 @@ fun ListProductItem(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ScreenHomePreview() {
-
+    val navController = rememberNavController()
+    ScreenHome(navController = navController)
 }
