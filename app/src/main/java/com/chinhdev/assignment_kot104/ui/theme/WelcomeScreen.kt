@@ -80,7 +80,7 @@ fun WelcomeScreen(navController: NavHostController) {
                             style = TextStyle(
                                 lineHeight = 30.sp
                             ),
-                            fontFamily = FontFamily(Font(R.font.nunitosans)),
+                            fontFamily = FontFamily(Font(R.font.nn)),
                             fontWeight = FontWeight.W700,
                             color = Color(0xFF808080)
                         )
